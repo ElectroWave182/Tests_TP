@@ -1,0 +1,146 @@
+Exercice 1 :
+____________
+
+
+1)
+from fractions import *
+
+print(Fraction(2, 4) + 2 + 2 * Fraction(1, 4))
+# = 3
+
+print(Fraction(1, 2) ** 2)
+# = 1/4
+
+print(Fraction(1, 2) * 1.0)
+# = 0.5
+
+2)
+from fractions import *
+
+def affiche_str(M):
+    maxi = 0
+    for L in M:
+        for val in L:
+            if len(str(val)) > maxi:
+                maxi = len(str(val))
+    chaine_format = "% " + str(maxi + 3) + "s"
+    for L in M:
+        for val in L:
+            print(chaine_format % (val), end = "")
+        print()
+    print()
+
+n = [[Fraction(10, 20), -1, Fraction(2, 3)], [Fraction(3, 4) + Fraction(1, 2) ** 3, 2 * Fraction(4, 8), Fraction(1, 2) * Fraction(5, 6)]]
+
+affiche_str(n)
+
+
+Exercice 2 :
+____________
+
+
+from fractions import *
+
+l1 = [i for i in range(21) if i % 2 == 0]
+assert l1 == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20], "Erreur 1"
+
+l2 = [(i, j) for i in range(5) for j in range(5) if i < j]
+assert l2 == [(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)], "Erreur 2"
+
+l3 = [i + j for i in range(5) for j in range(5) if i <= j]
+assert l3 == [0, 1, 2, 3, 4, 2, 3, 4, 5, 4, 5, 6, 6, 7, 8], "Erreur 3"
+
+l4 = [str(i) + "/" + str(j) for i in range(1, 5) for j in range(1, 5)]
+assert l4 == ["1/1", "1/2", "1/3", "1/4", "2/1", "2/2", "2/3", "2/4", "3/1", "3/2", "3/3", "3/4", "4/1", "4/2", "4/3", "4/4"], "Erreur 4"
+
+l5 = [str(Fraction(i, j)) for i in range(1, 5) for j in range(1, 5)]
+assert l5 == ["1", "1/2", "1/3", "1/4", "2", "1", "2/3", "1/2", "3", "3/2", "1", "3/4", "4", "2", "4/3", "1"], "Erreur 5"
+
+
+Exercice 3 :
+____________
+
+
+Il faut privilégier les fonctions 1 et 3, car celles-ci utilisent les listes en compréhension ; ce qui permet d'éviter la création de listes en tant que colonnes, et donc la modification de ces colonnes involontairement dans la matrice.
+
+
+Exercice 4 :
+____________
+
+
+1)
+m = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+
+l = [ele for col in m for ele in col]
+
+print(l)
+
+2)
+m = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+
+l = [ele for col in m for ele in col]
+print(l)
+
+def mat(l, nbLig, nbCol):
+    return [[l[i + j * nbCol] for i in range(nbCol)] for j in range(nbLig)]
+
+print(mat(l, len(m), len(m[0])))
+
+
+Exercice 5 :
+____________
+
+
+m = [[1, 0, 3, 0, 0], [0, 1, 0, 0, 4], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 2, 0, 0, 1]]
+
+def identite(n):
+    assert n > 0, "Erreur, taille négative"
+    return [[1 if lig == col else 0 for col in range(n)] for lig in range(n)]
+
+print(identite(5))
+
+def transposee(m):
+    assert len(m) == len(m[0]), "Erreur, matrice non carrée"
+    return [[ele for ele in lig[:: -1]] for lig in m[:: -1]]
+
+print(transposee(m))
+
+def dilatee(landa, m):
+    return [[ele * landa for ele in lig] for lig in m]
+
+print(dilatee(8, m))
+
+def somme(m1, m2):
+    nblig1, nbcol1 = len(m1), len(m1[0])
+    nblig2, nbcol2 = len(m2), len(m2[0])
+
+    assert nblig1 == nblig2 and nbcol1 == nbcol2, "Erreur, les matrices ne sont pas de même taille"
+    return [[m1[lig][col] + m2[lig][col] for col in range(nbcol1)] for lig in range(nblig1)]
+
+k = somme(m, m)
+print(k)
+
+def mineure(mat, i, j):
+    nblig, nbcol = len(mat), len(mat[0])
+    assert 0 <= i < nblig, "Erreur, indice i en dehors des limites"
+    assert 0 <= j < nbcol, "Erreur, indice j en dehors des limites"
+    return [[mat[lig][col] for col in range(nbcol) if col != j] for lig in range(nblig) if lig != i]
+
+n = mineure(m, 2, 3)
+print(n)
+
+def augmente(m1, m2):
+    nblig1, nbcol1 = len(m1), len(m1[0])
+    nblig2, nbcol2 = len(m2), len(m2[0])
+
+    assert nblig1 == nblig2, "Erreur, les matrices n'ont pas le même nombre de lignes"
+    return [[m1[lig][col] if col < nbcol1 else m2[lig][col - nbcol1] for col in range(nbcol1 + nbcol2)] for lig in range(nblig1)]
+
+print(augmente(m, k))
+
+
+Exercice 6 :
+____________
+
+
+?!
